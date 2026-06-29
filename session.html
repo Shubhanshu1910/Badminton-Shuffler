@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Socket Test</title>
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+</head>
+<body>
+
+<h2>Socket Test</h2>
+
+<button onclick="join()">Join Session</button>
+
+<script>
+
+const socket = io("http://localhost:3000");
+
+socket.on("connect", () => {
+    console.log("Connected");
+    console.log(socket.id);
+});
+
+socket.on("joined", data => {
+    console.log(data);
+});
+
+socket.on("session-started", data => {
+    console.log(data);
+});
+
+socket.on("round-generated", data => {
+    console.log(data);
+});
+
+socket.on("match-started", data => {
+    console.log(data);
+});
+
+socket.on("score-updated", data => {
+    console.log(data);
+});
+
+socket.on("match-finished", data => {
+    console.log(data);
+});
+
+socket.on("next-round", data => {
+    console.log(data);
+});
+
+function join(){
+
+    socket.emit("join-session",{
+
+        sessionId:"cmqy5lra1000fwa6so4aollab",
+
+        userName:"Shubhanshu"
+
+    });
+
+}
+
+</script>
+
+</body>
+</html>
