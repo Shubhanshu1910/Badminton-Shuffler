@@ -10,10 +10,9 @@ class BadmintonShufflerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      title: AppConstants.appName,
-      routerConfig: appRouter,
-      theme: AppTheme.lightTheme,
-    );
+  routerConfig: appRouter,
+  theme: AppTheme.lightTheme,
+  debugShowCheckedModeBanner: false,
+);
   }
 }
