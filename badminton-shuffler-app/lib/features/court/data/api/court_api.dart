@@ -2,38 +2,38 @@ import 'package:dio/dio.dart';
 
 import '../../../../core/api/api_client.dart';
 
-class PlayerApi {
+class CourtApi {
   final Dio dio = ApiClient.dio;
 
-  Future<List<dynamic>> getPlayers() async {
-    final response = await dio.get('/players');
+  Future<List<dynamic>> getCourts() async {
+    final response = await dio.get('/courts');
+
     return response.data['data']['items'];
   }
 
-  Future<dynamic> createPlayer(
+  Future<dynamic> createCourt(
       Map<String, dynamic> body) async {
     final response = await dio.post(
-      '/players',
+      '/courts',
       data: body,
     );
 
     return response.data['data'];
   }
 
-  Future<dynamic> updatePlayer(
+  Future<dynamic> updateCourt(
       String id,
       Map<String, dynamic> body) async {
     final response = await dio.patch(
-      '/players/$id',
+      '/courts/$id',
       data: body,
     );
 
     return response.data['data'];
   }
 
-  Future<void> deletePlayer(
-      String id,
-  ) async {
-    await dio.delete('/players/$id');
+  Future<void> deleteCourt(
+      String id) async {
+    await dio.delete('/courts/$id');
   }
 }

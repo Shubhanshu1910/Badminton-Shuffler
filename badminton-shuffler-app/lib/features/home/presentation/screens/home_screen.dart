@@ -1,13 +1,15 @@
 // import 'package:badminton_shuffler_app/features/player/presentation/pages/players_page.dart';
+import '../../../court/presentation/pages/courts_page.dart';
+import '../../../player/presentation/pages/add_player_page.dart';
 import '../../../player/presentation/pages/players_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../player/presentation/providers/player_provider.dart';
+import '../../../splash/presentation/pages/splash_page.dart';
 import '../providers/session_provider.dart';
 import '../widgets/session_card.dart';
 import '../../../../shared/widgets/quick_action_card.dart';
-
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -85,7 +87,14 @@ class HomeScreen extends ConsumerWidget {
                     QuickActionCard(
                       icon: Icons.sports_tennis,
                       title: "Courts",
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const CourtsPage(),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -97,7 +106,14 @@ class HomeScreen extends ConsumerWidget {
                     QuickActionCard(
                       icon: Icons.event,
                       title: "Sessions",
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const SessionsPage(),
+                          ),
+                        );
+                      },
                     ),
 
                     const SizedBox(width: 12),
@@ -139,13 +155,31 @@ class HomeScreen extends ConsumerWidget {
         },
       ),
 
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          // TODO: Navigate to Create Session
-        },
-        icon: const Icon(Icons.add),
-        label: const Text("Create Session"),
+      floatingActionButton:
+    FloatingActionButton(
+
+  child: const Icon(Icons.add),
+
+  onPressed: () async {
+
+    await Navigator.push(
+
+      context,
+
+      MaterialPageRoute(
+
+        builder: (_) =>
+            const AddPlayerPage(),
+
       ),
+
+    );
+
+    ref.invalidate(playerProvider);
+
+  },
+
+),
     );
   }
 }

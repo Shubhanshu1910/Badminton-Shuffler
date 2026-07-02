@@ -4,6 +4,10 @@ as io;
 import '../../app/constants/api_constants.dart';
 
 class SocketService {
+  SocketService._();
+
+  static final SocketService instance = SocketService._();
+
   late io.Socket socket;
 
   void connect() {
@@ -21,6 +25,7 @@ class SocketService {
   void disconnect() {
     socket.disconnect();
   }
+
 
   void joinSession(
       String sessionId,

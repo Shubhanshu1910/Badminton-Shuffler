@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../data/models/player_model.dart';
-import '../pages/add_player_page.dart';
-import '../providers/player_provider.dart';
+import '../../data/models/court_model.dart';
+import '../pages/add_court_page.dart';
+import '../providers/court_provider.dart';
 
-class PlayerCard extends ConsumerWidget {
-  final PlayerModel player;
+class CourtCard extends ConsumerWidget {
+  final CourtModel court;
 
-  const PlayerCard({
+  const CourtCard({
     super.key,
-    required this.player,
+    required this.court,
   });
 
   @override
@@ -22,17 +22,15 @@ class PlayerCard extends ConsumerWidget {
       ),
       child: ListTile(
         leading: const CircleAvatar(
-          child: Icon(Icons.person),
+          child: Icon(Icons.sports_tennis),
         ),
-        title: Text(player.name),
+        title: Text(court.name),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(player.phone ?? "-"),
-            Text(
-              "Skill ${player.skillLevel} • Played ${player.gamesPlayed}",
-            ),
+            Text("Court No. ${court.courtNumber}"),
+            Text("Status: ${court.status}"),
           ],
         ),
         trailing: Row(
@@ -47,13 +45,13 @@ class PlayerCard extends ConsumerWidget {
                 await Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => AddPlayerPage(
-                      player: player,
+                    builder: (_) => AddCourtPage(
+                      court: court,
                     ),
                   ),
                 );
 
-                ref.invalidate(playerProvider);
+                ref.invalidate(courtProvider);
               },
             ),
             IconButton(
@@ -65,9 +63,9 @@ class PlayerCard extends ConsumerWidget {
                 final confirm = await showDialog<bool>(
                   context: context,
                   builder: (_) => AlertDialog(
-                    title: const Text("Delete Player"),
+                    title: const Text("Delete Court"),
                     content: Text(
-                      "Delete ${player.name}?",
+                      "Delete ${court.name}?",
                     ),
                     actions: [
                       TextButton(
@@ -87,16 +85,16 @@ class PlayerCard extends ConsumerWidget {
                 if (confirm != true) return;
 
                 await ref
-                    .read(playerRepositoryProvider)
-                    .deletePlayer(player.id);
+                    .read(courtRepositoryProvider)
+                    .deleteCourt(court.id);
 
-                ref.invalidate(playerProvider);
+                ref.invalidate(courtProvider);
 
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        "${player.name} deleted",
+                        "${court.name} deleted",
                       ),
                     ),
                   );

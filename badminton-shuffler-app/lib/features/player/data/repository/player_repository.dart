@@ -27,4 +27,17 @@ class PlayerRepository {
       "skillLevel": skill,
     });
   }
+
+  Future<void> updatePlayer(
+  String id,
+  String name,
+  String phone,
+  int skill,
+) {
+  return api.updatePlayer(id, {
+    "name": name,
+    "phone": phone,
+    "skillLevel": skill,
+  });
+}
 }
